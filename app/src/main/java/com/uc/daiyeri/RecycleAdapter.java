@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHolder>{
 
     private Context context;
@@ -64,4 +65,5 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
             tvNote = view.findViewById(R.id.note);
         }
     }
+
 }
