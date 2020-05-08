@@ -10,7 +10,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class insert extends AppCompatActivity implements TextWatcher{
@@ -24,9 +23,9 @@ public class insert extends AppCompatActivity implements TextWatcher{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.insert);
-        inputTitle = findViewById(R.id.input_title);
+        inputTitle = findViewById(R.id.nama);
         inputNote = findViewById(R.id.input_note);
-        button_save = findViewById(R.id.button_save);
+        button_save = findViewById(R.id.btn_save2);
 
         helper = new myDbAdapter(this);
 
@@ -42,14 +41,14 @@ public class insert extends AppCompatActivity implements TextWatcher{
             }
         });
         button_save.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        title = inputTitle.getEditText().getText().toString().trim();
-                        note = inputNote.getEditText().getText().toString().trim();
-                        long id = helper.insertData(title,note);
-                        finish();
-                    }
-                    });
+            @Override
+            public void onClick(View v) {
+                title = inputTitle.getEditText().getText().toString().trim();
+                note = inputNote.getEditText().getText().toString().trim();
+                long id = helper.insertData(title,note);
+                finish();
+            }
+        });
         }
 
 
