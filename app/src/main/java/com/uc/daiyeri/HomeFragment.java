@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,7 +35,8 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home,container,false);
 
         db = new myDbAdapter(getActivity());
-        recyclerView= view.findViewById(R.id.rv);
+        recyclerView = view.findViewById(R.id.rv);
+
 
         not = db.allPlayers();
         if (not.isEmpty()){
@@ -42,11 +44,12 @@ public class HomeFragment extends Fragment {
         }
         else{
             Log.e("main-list", not.toString());
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-            recyclerView.setLayoutManager(linearLayoutManager);
-
-            adapter = new RecycleAdapter(getActivity(), not);
-            recyclerView.setAdapter(adapter);
+//            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+//            recyclerView.setLayoutManager(linearLayoutManager);
+//
+//            adapter = new RecycleAdapter(getActivity(), not);
+//            recyclerView.setAdapter(adapter);
+            showNote(not);
         }
 
 
@@ -72,11 +75,12 @@ public class HomeFragment extends Fragment {
         }
         else{
             Log.e("main-list", not.toString());
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-            recyclerView.setLayoutManager(linearLayoutManager);
-
-            adapter = new RecycleAdapter(getActivity(), not);
-            recyclerView.setAdapter(adapter);
+//            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+//            recyclerView.setLayoutManager(linearLayoutManager);
+//
+//            adapter = new RecycleAdapter(getActivity(), not);
+//            recyclerView.setAdapter(adapter);
+            showNote(not);
         }
     }
 
@@ -93,14 +97,49 @@ public class HomeFragment extends Fragment {
             }
             else{
                 Log.e("main-list", not.toString());
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-                recyclerView.setLayoutManager(linearLayoutManager);
+//                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+//                recyclerView.setLayoutManager(linearLayoutManager);
+//
+//                adapter = new RecycleAdapter(getActivity(), not);
+//                recyclerView.setAdapter(adapter);
+                showNote(not);
 
-                adapter = new RecycleAdapter(getActivity(), not);
-                recyclerView.setAdapter(adapter);
+
+            }
+        }
+
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
             }
 
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder target, int direction) {
 
-        }
+                int position = target.getAdapterPosition();
+                not.remove(position);
+                adapter.notifyDataSetChanged();
+
+            }
+        });
+        helper.attachToRecyclerView(recyclerView);
+    }
+    private void showNote (final List<User> not){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        adapter = new RecycleAdapter(getActivity(), not);
+        recyclerView.setAdapter(adapter);
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
+                Intent intent = new Intent(getActivity(), update.class);
+                intent.putExtra(update.EXTRA_NOTE, not.get(position));
+                startActivity(intent);
+                Toast.makeText(getContext(),not.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
