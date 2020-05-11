@@ -10,7 +10,10 @@
         android:roundIcon="@mipmap/daiyeri_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity" android:screenOrientation="portrait"
+        <activity android:name=".update"></activity>
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:screenOrientation="portrait"
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,9 +31,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".insert" android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
-        </activity>
+        <activity
+            android:name=".insert"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"></activity>
+        <activity
+            android:name=".panduan"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"></activity>
     </application>
 
 </manifest>
